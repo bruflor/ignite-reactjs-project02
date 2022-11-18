@@ -5,6 +5,8 @@ import {
   CountDownContainer,
   Separator,
   StartCountDownButton,
+  TextInput,
+  MinutesAmountInput,
 } from "./styles";
 
 export const Home = () => {
@@ -13,9 +15,13 @@ export const Home = () => {
       <form action="">
         <FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
-          <input id="task" />
+          <TextInput id="task" placeholder="Dê um nome para o seu projeto" />
           <label htmlFor="minutesAmount">durante</label>
-          <input id="minutesAmount" type="number" />
+          <MinutesAmountInput
+            id="minutesAmount"
+            type="number"
+            placeholder="00"
+          />
           <span>minutos.</span>
         </FormContainer>
 

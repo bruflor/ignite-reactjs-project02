@@ -25,6 +25,31 @@ export const FormContainer = styled.div`
   flex-wrap: wrap;
 `;
 
+const BaseInput = styled.input`
+    background: transparent;
+    height: 2.5rem;
+    border: 0;
+    border-bottom: 2px solid ${props => props.theme["gray-500"]};
+    font-weight: bold;
+    font-size: 1.125rem;
+    padding: 0 0.5rem;
+    color: ${(props) => props.theme["gray-100"]};
+
+    &:focus{
+        box-shadow: none;
+        border-color: ${props => props.theme["green-500"]};
+    }
+    &::placeholder{
+        color: ${(props) => props.theme["gray-500"]};
+    }
+`
+export const TextInput = styled(BaseInput)`
+    flex:1;
+`
+export const MinutesAmountInput = styled(BaseInput)`
+    width: 4rem;
+`
+
 export const CountDownContainer = styled.div`
     font-family: "Roboto Mono", monospace;
     font-size: 10rem;
@@ -66,7 +91,12 @@ export const StartCountDownButton = styled.button`
     color:${props => props.theme["gray-100"]};
     
     
-    &:hover{
+    &:not(:disabled)hover{
         background:${props => props.theme["green-700"]};
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
     }
 `
