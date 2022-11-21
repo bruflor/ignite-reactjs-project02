@@ -48,13 +48,19 @@ export const Home = () => {
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycledId);
 
   useEffect(() => {
+    let interval: number;
+
     if (activeCycle) {
-      setInterval(() => {
+      interval = setInterval(() => {
         setAmountSecondsPassed(
           differenceInSeconds(new Date(), activeCycle.startDate)
         );
       }, 1000);
     }
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [activeCycle]);
 
   function handleCreateNewCycle(data: NewCycleFormData) {
@@ -69,6 +75,8 @@ export const Home = () => {
 
     setCycles((state) => [...state, newCycle]);
     setActiveCycledId(id);
+    setAmountSecondsPassed(0);
+
     reset();
   }
 
