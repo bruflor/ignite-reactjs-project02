@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useReducer, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import {
   ActionTypes,
   addNewCycleAction,
@@ -36,10 +42,15 @@ export function CyclesContextProvider({
     cycles: [],
     activeCycleId: null,
   });
-  const { cycles, activeCycleId } = cyclesState;
 
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
 
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cyclesState);
+    localStorage.setItem("@ignite-time:cycles-state-1.0.0", stateJSON);
+  }, [cyclesState]);
+
+  const { cycles, activeCycleId } = cyclesState;
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
 
   function markCurrentCyleAsFinished() {
