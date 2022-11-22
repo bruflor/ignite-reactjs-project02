@@ -4,9 +4,13 @@ import { differenceInSeconds } from "date-fns";
 import { CyclesContext } from "../..";
 
 export const CountDown = () => {
-  const { activeCycle, activeCycleId, markCurrentCyleAsFinished } =
-    useContext(CyclesContext);
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
+  const {
+    activeCycle,
+    activeCycleId,
+    markCurrentCyleAsFinished,
+    amountSecondsPassed,
+    setSecondsPassed,
+  } = useContext(CyclesContext);
 
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
 
@@ -21,10 +25,10 @@ export const CountDown = () => {
         );
         if (secondsDifference >= totalSeconds) {
           markCurrentCyleAsFinished();
-          setAmountSecondsPassed(totalSeconds);
+          setSecondsPassed(totalSeconds);
           clearInterval(interval);
         } else {
-          setAmountSecondsPassed(secondsDifference);
+          setSecondsPassed(secondsDifference);
         }
       }, 1000);
     }
@@ -32,7 +36,13 @@ export const CountDown = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [activeCycle, totalSeconds, activeCycleId, markCurrentCyleAsFinished]);
+  }, [
+    activeCycle,
+    totalSeconds,
+    activeCycleId,
+    markCurrentCyleAsFinished,
+    setSecondsPassed,
+  ]);
 
   const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0;
 
